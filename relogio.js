@@ -1,3 +1,4 @@
+//função do relógio
 function Relogio(){
     var data = new Date();
     var horas = data.getHours();
@@ -12,23 +13,45 @@ function Relogio(){
 var refresh = setInterval(Relogio,500)
 
 function Alarme(){
+    //remove o relogio
     clearInterval(refresh);
+    var tempo = document.getElementById("divRelogio");
+    tempo.remove();
 
-    var div = document.getElementById("divRelogio")
-    div.innerHTML = "";
+    var alarme = document.getElementById("divAlarme");
 
-    var hrs = dociment.createElement("div");
-    var mins = dociment.createElement("div");
-    var secs = dociment.createElement("div");
+    //cria os selects com os horários
+    var hrs = document.createElement("select");
+    for(var i = 0; i < 25; i++){
+        var horasOpt = document.createElement("option");
+        horasOpt.value = i;
+        horasOpt.innerHTML = i;
+        hrs.appendChild(horasOpt);
+    }
 
-    var inputHoras = document.createElement("input");
-    var inputMinutos = document.createElement("input");
-    var inputSegundos = document.createElement("input"); 
-    
-    inputHoras.appendChild(hrs)
-    inputMinutos.appendChild(mins)
-    inputSegundos.appendChild(secs)
+    var mins = document.createElement("select");
+    for(var i = 0; i < 25; i++){
+        var minutosOpt = document.createElement("option");
+        minutosOpt.value = i;
+        minutosOpt.innerHTML = i;
+        mins.appendChild(minutosOpt);
+    }
 
-    
-    
+    var secs = document.createElement("select");
+    for(var i = 0; i < 25; i++){
+        var segundosOpt = document.createElement("option");
+        segundosOpt.value = i;
+        segundosOpt.innerHTML = i;
+        secs.appendChild(segundosOpt);
+    }
+
+    var defineAlarme = document.createElement("button");
+    defineAlarme.textContent = "Definir"
+
+    alarme.appendChild(hrs);
+    alarme.appendChild(mins);
+    alarme.appendChild(secs);
+    alarme.appendChild(defineAlarme);
+
+
 }
