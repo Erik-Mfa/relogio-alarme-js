@@ -1,0 +1,44 @@
+#main{
+    margin: auto;
+    margin-top: 320px;
+    text-align: center;
+}
+
+
+.button{
+    width: 330px;
+    margin-bottom: 10px;
+    background-color: #f9c2fb;
+    border-radius: 10px;
+    box-shadow: rgb(168, 11, 147) 0 -25px 18px -14px inset,rgb(255, 196, 255) 0 1px 2px,rgb(255, 196, 255) 0 2px 4px,rgb(255, 196, 255) 0 4px 8px,rgb(255, 196, 255) 0 8px 16px,rgb(255, 196, 255) 0 16px 32px;
+    color: rgb(128, 0, 111);
+    cursor: pointer;
+    display: inline-block;
+    font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
+    padding: 7px 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 250ms;
+    border: 0;
+    font-size: 16px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button:hover {
+    box-shadow: rgb(192, 86, 178) 0 -25px 18px -14px inset,rgb(248, 206, 248) 0 1px 2px,rgb(248, 206, 248) 0 2px 4px,rgb(248, 206, 248) 0 4px 8px,rgb(248, 206, 248) 0 8px 16px,rgb(248, 206, 248) 0 16px 32px;
+    transform: scale(1.05) rotate(-1deg);
+}
+
+#divRelogio{
+    width: 1000px;
+    font-size: 80px;
+    text-align: center;
+    margin: auto;
+    margin-top: 30px;
+    background-color: rgb(255, 196, 255);
+    border: 3px solid rgb(128, 0, 111);
+    border-radius: 5px;
+}
+
