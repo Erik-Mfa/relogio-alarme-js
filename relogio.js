@@ -1,3 +1,14 @@
+var divRelogio = document.getElementById("divRelogio");
+var divAlarme = document.getElementById("divAlarme");
+var divCronometro = document.getElementById("divCronometro");
+var chamaAlarme = document.getElementById("botaoDoAlarme");
+var refresh = setInterval(Relogio,500)
+Relogio()
+
+chamaAlarme.addEventListener("click", function(){
+    Alarme()
+}, {once : true})
+
 //função do relógio
 function Relogio(){
     var data = new Date();
@@ -5,47 +16,41 @@ function Relogio(){
     var minutos = data.getMinutes();
     var segundos = data.getSeconds();
 
-    var tempoTotal = horas + ":" + minutos + ":" + segundos;
-    var tempo = document.getElementById("divRelogio");
-    tempo.innerHTML = tempoTotal;
+    var tempoTotal = horas + ":" + minutos + ":" + segundos; //number <------
+    divRelogio.innerHTML = tempoTotal;
+
+    ContarAlarme(horas, minutos, segundos)
 }
 
-var refresh = setInterval(Relogio,500)
-
+//função para criar menu do alarme
 function Alarme(){
-    //remove o relogio
-    clearInterval(refresh);
-    var tempo = document.getElementById("divRelogio");
-    tempo.remove();
-
-    var alarme = document.getElementById("divAlarme");
-
     //cria os selects com os horários
-    var secs = document.createElement("select");
-    secs.setAttribute("id", "segundoSelect") 
+    var secsSelect = document.createElement("select");
+    secsSelect.setAttribute("id", "segundoSelect") 
     for(var i = 0; i <= 59; i++){
         var segundosOpt = document.createElement("option");
         segundosOpt.value = i;
         segundosOpt.innerHTML = i;
-        secs.appendChild(segundosOpt);
+        secsSelect.appendChild(segundosOpt);
     }
 
-    var mins = document.createElement("select");
-    mins.setAttribute("id", "minutoSelect")
+    var minsSelect = document.createElement("select");
+    minsSelect.setAttribute("id", "minutoSelect")
     for(var i = 0; i <= 59; i++){
         var minutosOpt = document.createElement("option");
         minutosOpt.value = i;
         minutosOpt.innerHTML = i;
-        mins.appendChild(minutosOpt);
+        minsSelect.appendChild(minutosOpt);
     }
 
-    var hrs = document.createElement("select");
-    hrs.setAttribute("id", "horaSelect")
+    var hrsSelect = document.createElement("select");
+    hrsSelect.setAttribute("id", "horaSelect")
     for(var i = 0; i <= 23; i++){
         var horasOpt = document.createElement("option");
         horasOpt.value = i;
         horasOpt.innerHTML = i;
-        hrs.appendChild(horasOpt);
+        hrsSelect.appendChild(horasOpt);
+        
     }
 
     let defineAlarm = document.createElement("button");
@@ -53,27 +58,46 @@ function Alarme(){
     defineAlarm.name = "definir"
     defineAlarm.setAttribute("id", "define")
 
-    alarme.appendChild(hrs);
-    alarme.appendChild(mins);
-    alarme.appendChild(secs);
-    alarme.appendChild(defineAlarm);
+    divAlarme.appendChild(hrsSelect);
+    divAlarme.appendChild(minsSelect);
+    divAlarme.appendChild(secsSelect);
+    divAlarme.appendChild(defineAlarm);
 
     defineAlarm.addEventListener("click", function(){
         Define()
     })
-    
 }
 
+//função para definir o alarme
 function Define(){
     horaAlarme = document.getElementById("horaSelect").value
     minutoAlarme = document.getElementById("minutoSelect").value
     segundoAlarme = document.getElementById("segundoSelect").value
 
+    
     var paragrafo = document.createElement("p")
     var div = document.createElement("div")
-    paragrafo.textContent = "Alarme definido para: " + horaAlarme + " : " + minutoAlarme + " : " + segundoAlarme
+    paragrafo.textContent = "Alarme definido para: " + horaAlarme + " : " + minutoAlarme + " : " + segundoAlarme //string <-----
     div.appendChild(paragrafo)
     divAlarme.appendChild(div)
+
+    ContarAlarme(horaAlarme, minutoAlarme, segundoAlarme)
     
-    console.log(horaAlarme, minutoAlarme, segundoAlarme)
 }
+
+function ContarAlarme(horas, minutos, segundos, horaAlarme, minutoAlarme, segundoAlarme){
+    stringHoraRelogio = horas.toString();
+    stringMinutoRelogio = minutos.toString();
+    stringSegundoRelogio = segundos.toString();
+
+    tempoContador = stringHoraRelogio + stringMinutoRelogio + stringSegundoRelogio
+    tempoAlarme = horaAlarme + minutoAlarme + segundoAlarme
+
+    console.log(tempoContador)
+
+}
+
+
+
+
+
