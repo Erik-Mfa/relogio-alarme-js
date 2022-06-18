@@ -10,6 +10,7 @@ chamaAlarme.addEventListener("click", function(){
 }, {once : true})
 
 //função do relógio
+//é executada a todo o momento
 function Relogio(){
     var data = new Date();
     var horas = data.getHours();
@@ -19,7 +20,6 @@ function Relogio(){
     var tempoTotal = horas + ":" + minutos + ":" + segundos; //number <------
     divRelogio.innerHTML = tempoTotal;
 
-    ContarAlarme(horas, minutos, segundos)
 }
 
 //função para criar menu do alarme
@@ -70,32 +70,53 @@ function Alarme(){
 
 //função para definir o alarme
 function Define(){
-    horaAlarme = document.getElementById("horaSelect").value
-    minutoAlarme = document.getElementById("minutoSelect").value
-    segundoAlarme = document.getElementById("segundoSelect").value
-
+    var horaAlarme = document.getElementById("horaSelect").value
+    var minutoAlarme = document.getElementById("minutoSelect").value
+    var segundoAlarme = document.getElementById("segundoSelect").value //string <-----
     
     var paragrafo = document.createElement("p")
     var div = document.createElement("div")
-    paragrafo.textContent = "Alarme definido para: " + horaAlarme + " : " + minutoAlarme + " : " + segundoAlarme //string <-----
+    paragrafo.textContent = "Alarme definido para: " + horaAlarme + " : " + minutoAlarme + " : " + segundoAlarme 
     div.appendChild(paragrafo)
-    divAlarme.appendChild(div)
+    divAlarme.appendChild(div) 
 
-    ContarAlarme(horaAlarme, minutoAlarme, segundoAlarme)
+
+    function Envia(){
+        const alarme = horaAlarme + minutoAlarme + segundoAlarme
+        Comparar(alarme)
+    }
+
+    var enviar = setInterval(Envia, 500)
+}
+
+
+function Comparar(alarme){
+    var data = new Date();
+    var horas = data.getHours();
+    var minutos = data.getMinutes();
+    var segundos = data.getSeconds();
+
+    hora = horas.toString()
+    minuto = minutos.toString()
+    segundo = segundos.toString()
+
+    var tempo = hora + minuto + segundo
+
+    const alarmes = [];
+
+    if(alarme){
+        alarmes.push(alarme);
+    }
+
+    console.log(alarmes)
+    console.log(tempo)
+
+
+}
+
     
-}
 
-function ContarAlarme(horas, minutos, segundos, horaAlarme, minutoAlarme, segundoAlarme){
-    stringHoraRelogio = horas.toString();
-    stringMinutoRelogio = minutos.toString();
-    stringSegundoRelogio = segundos.toString();
 
-    tempoContador = stringHoraRelogio + stringMinutoRelogio + stringSegundoRelogio
-    tempoAlarme = horaAlarme + minutoAlarme + segundoAlarme
-
-    console.log(tempoContador)
-
-}
 
 
 
