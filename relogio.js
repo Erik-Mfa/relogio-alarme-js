@@ -26,7 +26,8 @@ function Relogio(){
 function Alarme(){
     //cria os selects com os horários
     var secsSelect = document.createElement("select");
-    secsSelect.setAttribute("id", "segundoSelect") 
+    secsSelect.setAttribute("id", "segundoSelect")
+    secsSelect.className = "selectAlarme" 
     for(var i = 0; i <= 59; i++){
         var segundosOpt = document.createElement("option");
         segundosOpt.value = i;
@@ -36,6 +37,7 @@ function Alarme(){
 
     var minsSelect = document.createElement("select");
     minsSelect.setAttribute("id", "minutoSelect")
+    minsSelect.classList.add("selectAlarme")
     for(var i = 0; i <= 59; i++){
         var minutosOpt = document.createElement("option");
         minutosOpt.value = i;
@@ -45,6 +47,7 @@ function Alarme(){
 
     var hrsSelect = document.createElement("select");
     hrsSelect.setAttribute("id", "horaSelect")
+    hrsSelect.classList.add("selectAlarme")
     for(var i = 0; i <= 23; i++){
         var horasOpt = document.createElement("option");
         horasOpt.value = i;
@@ -56,6 +59,7 @@ function Alarme(){
     let defineAlarm = document.createElement("button");
     defineAlarm.textContent = "Definir"
     defineAlarm.name = "definir"
+    defineAlarm.className = "alarmButtonDefine" 
     defineAlarm.setAttribute("id", "define")
 
     divAlarme.appendChild(hrsSelect);
@@ -76,19 +80,17 @@ function Define(){
     
     var paragrafo = document.createElement("p")
     var div = document.createElement("div")
-    paragrafo.textContent = "Alarme definido para: " + horaAlarme + " : " + minutoAlarme + " : " + segundoAlarme 
+    paragrafo.textContent = "Alarme: " + horaAlarme + " : " + minutoAlarme + " : " + segundoAlarme 
     div.appendChild(paragrafo)
     divAlarme.appendChild(div) 
-
 
     function Envia(){
         const alarme = horaAlarme + minutoAlarme + segundoAlarme
         Comparar(alarme)
     }
 
-    var enviar = setInterval(Envia, 500)
+    setInterval(Envia, 1000)
 }
-
 
 function Comparar(alarme){
     var data = new Date();
@@ -106,11 +108,19 @@ function Comparar(alarme){
 
     if(alarme){
         alarmes.push(alarme);
+        if(alarmes[0] == tempo){
+            var musica = document.getElementById("myAudio")
+
+            function tocar(){
+                musica.play()
+            }
+
+            tocar();
+        }
     }
 
     console.log(alarmes)
     console.log(tempo)
-
 
 }
 
