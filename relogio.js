@@ -2,8 +2,9 @@ var divRelogio = document.getElementById("divRelogio");
 var divAlarme = document.getElementById("divAlarme");
 var divCronometro = document.getElementById("divCronometro");
 var chamaAlarme = document.getElementById("botaoDoAlarme");
-var refresh = setInterval(Relogio,500)
-Relogio()
+var refresh = setInterval(Relogio,500);
+var alarmeDiv = 0;
+Relogio();
 
 chamaAlarme.addEventListener("click", function(){
     Alarme()
@@ -67,13 +68,15 @@ function Alarme(){
     divAlarme.appendChild(secsSelect);
     divAlarme.appendChild(defineAlarm);
 
+    //chama função do alarme
     defineAlarm.addEventListener("click", function(){
-        Define()
+        ++alarmeDiv
+        Define(alarmeDiv)
     })
 }
 
 //função para definir o alarme
-function Define(){
+function Define(alarmeDiv){
     var horaAlarme = document.getElementById("horaSelect").value
     var minutoAlarme = document.getElementById("minutoSelect").value
     var segundoAlarme = document.getElementById("segundoSelect").value //string <-----
@@ -82,25 +85,31 @@ function Define(){
     var div = document.createElement("div")
     paragrafo.textContent = "Alarme: " + horaAlarme + " : " + minutoAlarme + " : " + segundoAlarme 
     div.appendChild(paragrafo)
+    div.setAttribute("id", alarmeDiv)
     divAlarme.appendChild(div) 
+    //se o alarme DIV alarme diminuir deleta a DIV
 
+    //envia uma vez o numero para ser comparado com a hora atual
     var alarme = horaAlarme + minutoAlarme + segundoAlarme
-    Envia(alarme)
+    Envia(alarme, alarmeDiv)
 }
 
+//variavel que executa a função do alarme
 var enviaAlarme 
 
-function Envia(alarme){
+function Envia(alarme, alarmeDiv){
+    
     if(alarme){
         enviaAlarme = setInterval(valor, 1000)
     }
+
     function valor(){
-        Comparar(alarme)
+        Comparar(alarme, alarmeDiv)
     }
 }
 
 
-function Comparar(alarme){
+function Comparar(alarme, alarmeDiv){
     var data = new Date();
     var horas = data.getHours();
     var minutos = data.getMinutes();
@@ -121,18 +130,21 @@ function Comparar(alarme){
             var musica = document.getElementById("myAudio")
             alarmes.splice(0, alarmes.length)
             clearInterval(enviaAlarme)
+            enviaAlarme = undefined
+            var div = document.getElementById(alarmeDiv)
+            div.remove();
 
             function tocar(){
                 musica.play()
-                
             }
             tocar();
-        }
-    }
 
+        }
+
+    }
     console.log(alarmes)
     console.log(tempo)
-
+    console.log(alarmeDiv)
 }
 
     
