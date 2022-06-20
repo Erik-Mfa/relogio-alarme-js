@@ -84,13 +84,21 @@ function Define(){
     div.appendChild(paragrafo)
     divAlarme.appendChild(div) 
 
-    function Envia(){
-        const alarme = horaAlarme + minutoAlarme + segundoAlarme
+    var alarme = horaAlarme + minutoAlarme + segundoAlarme
+    Envia(alarme)
+}
+
+var enviaAlarme 
+
+function Envia(alarme){
+    if(alarme){
+        enviaAlarme = setInterval(valor, 1000)
+    }
+    function valor(){
         Comparar(alarme)
     }
-
-    setInterval(Envia, 1000)
 }
+
 
 function Comparar(alarme){
     var data = new Date();
@@ -105,16 +113,19 @@ function Comparar(alarme){
     var tempo = hora + minuto + segundo
 
     const alarmes = [];
-
+    
     if(alarme){
         alarmes.push(alarme);
+
         if(alarmes[0] == tempo){
             var musica = document.getElementById("myAudio")
+            alarmes.splice(0, alarmes.length)
+            clearInterval(enviaAlarme)
 
             function tocar(){
                 musica.play()
+                
             }
-
             tocar();
         }
     }
