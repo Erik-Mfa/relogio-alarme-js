@@ -43,9 +43,6 @@ function mostra(){
     });
     
     // var horaAlarme = response.map(response => {return response.horario})
-        
-    
-
 }
 
 //função do relógio
@@ -115,6 +112,7 @@ function alarme(){
 }
 
 //função para definir o alarme
+
 function define(alarmeDiv){
     var horaAlarme = document.getElementById("horaSelect").value
     var minutoAlarme = document.getElementById("minutoSelect").value
@@ -122,7 +120,7 @@ function define(alarmeDiv){
     
     var paragrafo = document.createElement("p")
     var div = document.createElement("div")
-    paragrafo.textContent = "Alarme: " + horaAlarme + " : " + minutoAlarme + " : " + segundoAlarme
+    paragrafo.textContent = "Alarme definido para: " + horaAlarme + " : " + minutoAlarme + " : " + segundoAlarme
     div.appendChild(paragrafo)
 
     div.setAttribute("id", alarmeDiv)
@@ -174,7 +172,9 @@ function comparar(alarme, alarmeDiv){
             clearInterval(enviaAlarme)
             enviaAlarme = undefined
             
-            div.remove();
+            if(div != null){
+                div.remove()
+            }
 
             function tocar(){
                 musica.play()
