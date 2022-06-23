@@ -19,13 +19,34 @@ request.onload = function() {
     console.log(response);
 }
 
+chamaAlarme.addEventListener("click", function(){
+    divAlarme.innerHTML = "";
+    alarme()
+})
+
 mostraAlarmes.addEventListener("click", function(){
     mostra()
-}, {once : true})
+})
 
-chamaAlarme.addEventListener("click", function(){
-    alarme()
-}, {once : true})
+function mostra(){      
+    divAlarme.innerHTML = "";
+
+    var dataAlarme = response.map(response => {return response.data + ": " + response.horario + " "})
+
+    dataAlarme.forEach(element => {
+        var div = document.createElement("div");
+        
+        div.innerHTML = element
+        div.className = "alarmes"
+
+        divAlarme.appendChild(div)
+    });
+    
+    // var horaAlarme = response.map(response => {return response.horario})
+        
+    
+
+}
 
 //função do relógio
 //é executada a todo o momento
@@ -40,12 +61,9 @@ function relogio(){
 
 }
 
-function mostra(){
-    
-}
-
 //função para criar menu do alarme
 function alarme(){
+    divAlarme.style.display = "block"
     //cria os selects com os horários
     var secsSelect = document.createElement("select");
     secsSelect.setAttribute("id", "segundoSelect")
@@ -104,8 +122,9 @@ function define(alarmeDiv){
     
     var paragrafo = document.createElement("p")
     var div = document.createElement("div")
-    paragrafo.textContent = "Alarme: " + horaAlarme + " : " + minutoAlarme
+    paragrafo.textContent = "Alarme: " + horaAlarme + " : " + minutoAlarme + " : " + segundoAlarme
     div.appendChild(paragrafo)
+
     div.setAttribute("id", alarmeDiv)
     divAlarme.appendChild(div) 
 
